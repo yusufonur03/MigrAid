@@ -33,26 +33,16 @@ Tamam kanka, anladım. Daha net, daha vurucu ve kültürel entegrasyonu öne ç�
     *   **Ne Yapar?** Dil öğrenimi, sosyal çevre edinme, iş bulma gibi alanlardaki ilerlemeyi takip ederek kişiye özel bir "entegrasyon skoru" ve yol haritası sunar. Bu skora göre gelişim alanlarını belirler, hedefler koyar ve ulaşılabilir öneriler sunar (örn: "Bu hafta 3 yeni Türkçe kelime öğren", "Mahallendeki bir etkinliğe katıl").
     *   **Göçmene Faydası:** Entegrasyon sürecini somut adımlarla yönetir, motivasyonunu artırır ve hangi alanlara odaklanması gerektiğini gösterir.
 
-5.  **Dijital Ajanda ve Belge Kasası:**
-    *   **Ne Yapar?** Vize bitiş tarihi, randevu zamanları, teslim edilmesi gereken belgeler gibi kritik bilgileri saklar ve zamanı geldiğinde kullanıcıyı (istenirse SMS/bildirim ile) uyarır. Önemli belgelerin (pasaport, kimlik, diplomalar) dijital kopyalarını güvenli bir şekilde şifreli olarak saklama imkanı sunar.
-    *   **Göçmene Faydası:** Önemli tarihleri unutma stresinden kurtulur, belgelerine her yerden güvenle erişebilir.
-
-6.  **Psikolojik İlk Yardım ve Yalnızlık Sensörü:**
-    *   **Ne Yapar?** Kullanıcının sohbet asistanıyla etkileşimlerinden (anonimleştirilmiş ve izinli veri analizi) veya isteğe bağlı anketlerden yola çıkarak potansiyel psikolojik zorlukları (yoğun stres, yalnızlık hissi, adaptasyon güçlüğü) erken aşamada tespit etmeye çalışır. Onay alınması durumunda yerel destek gruplarına, STK'lara veya ruh sağlığı uzmanlarına yönlendirme yapar.
-    *   **Göçmene Faydası:** Kendini yalnız hissettiğinde veya bunaldığında bir "dinleyici" bulur. İhtiyaç duyduğu desteğe ulaşması için ilk adımı atmasına yardımcı olur.
-
-7.  **Beceri Eşleştirme ve Kariyer Pusulası:**
+5.**Beceri Eşleştirme ve Kariyer Pusulası:**
     *   **Ne Yapar?** Kullanıcının sahip olduğu beceri, deneyim ve eğitim bilgilerini alarak yerel iş piyasasındaki uygun pozisyonlarla eşleştirir. Gerekirse mesleki eğitim, dil kursu veya sertifika programları hakkında bilgi ve yönlendirme yapar.
     *   **Göçmene Faydası:** Kendi yeteneklerine uygun işleri daha kolay bulur, ekonomik bağımsızlığını kazanma sürecini hızlandırır.
 
-8.  **Deneyim Paylaşımı ve Sanal Mentorluk:**
-    *   **Ne Yapar?** Daha önce benzer süreçlerden geçmiş, başarılı bir şekilde entegre olmuş kişilerin (anonimleştirilmiş veya gönüllü) deneyimlerinden oluşturulmuş AI tabanlı senaryolar ve soru-cevap modülleri sunar. "Başarılı bir iş görüşmesi nasıl yapılır?", "Ev kiralarken nelere dikkat etmeli?", "Yerel komşularla nasıl iyi ilişkiler kurulur?" gibi konularda pratik tavsiyeler içerir.
-    *   **Göçmene Faydası:** Başkalarının tecrübelerinden ders çıkarır, sık yapılan hatalardan kaçınır ve pratik çözümler öğrenir.
+
 
 ---
 
 **Teknik Altyapı (Özet):**
-*   **Backend:** Javascript
+*   **Backend:** Javascript, express js
 *   **Frontend:** React
 *   **AI Modelleri:** Gemini API,
 *   **Veritabanı/Araçlar:** Google Firebase
@@ -70,6 +60,10 @@ Tamam kanka, anladım. Daha net, daha vurucu ve kültürel entegrasyonu öne ç�
 *   **SimPath AI:** Göçmenlerin farklı yasal ve sosyal kararlarının olası sonuçlarını simüle eden bir araç.
 *   **SocioFit Harita:** Topluluk bazlı, detaylı entegrasyon analizleri ve kaynak haritaları.
 *   **CalmLoop:** Derinlemesine ruh sağlığı desteği ve mindfulness araçları.
+5.  **Dijital Ajanda ve Belge Kasası:**
+    *   **Ne Yapar?** Vize bitiş tarihi, randevu zamanları, teslim edilmesi gereken belgeler gibi kritik bilgileri saklar ve zamanı geldiğinde kullanıcıyı (istenirse SMS/bildirim ile) uyarır. Önemli belgelerin (pasaport, kimlik, diplomalar) dijital kopyalarını güvenli bir şekilde şifreli olarak saklama imkanı sunar.
+    *   **Göçmene Faydası:** Önemli tarihleri unutma stresinden kurtulur, belgelerine her yerden güvenle erişebilir.
+
 
 ---
 
