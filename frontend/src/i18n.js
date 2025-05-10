@@ -1,0 +1,1 @@
+// i18n desteği kaldırıldı. Artık sadece Türkçe kullanılacak. 

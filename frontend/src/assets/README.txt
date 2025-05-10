@@ -1,0 +1,1 @@
+Bu klasör, projede kullanılacak görselleri (ör. logo) saklamak için oluşturulmuştur. 
