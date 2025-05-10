@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { authenticate } = require("../middleware/auth");
+// We will now use req.firestore, so admin import from firebase config is not strictly needed here for firestore
+// const { admin, auth, app: firebaseApp } = require("../config/firebase");
 
 // GET /api - Basic health check for the API routes
 router.get("/", (req, res) => {
@@ -195,17 +197,35 @@ router.post("/chat/stream", authenticate, async (req, res) => {
       language: language || "en",
     };
 
-    // Use the streaming function
-    const stream = streamPrompt(prompt, "chat", options, history);
+    try {
+      // Use the streaming function
+      const stream = streamPrompt(prompt, "chat", options, history);
 
-    // Stream each chunk to the client
-    for await (const chunk of stream) {
-      res.write(`data: ${JSON.stringify({ chunk })}\n\n`);
+      // Stream each chunk to the client
+      for await (const chunk of stream) {
+        if (res.writableEnded) break;
+        res.write(`data: ${JSON.stringify({ chunk })}\n\n`);
+      }
+
+      // End the stream
+      if (!res.writableEnded) {
+        res.write("data: [DONE]\n\n");
+        res.end();
+      }
+    } catch (streamError) {
+      console.error("Streaming error:", streamError);
+
+      if (!res.headersSent) {
+        return res.status(500).json({
+          error: streamError.message || "An error occurred during streaming chat",
+        });
+      }
+
+      if (!res.writableEnded) {
+        res.write(`data: ${JSON.stringify({ error: streamError.message })}\n\n`);
+        res.end();
+      }
     }
-
-    // End the stream
-    res.write("data: [DONE]\n\n");
-    res.end();
   } catch (error) {
     console.error("Error in streaming chat endpoint:", error);
 
@@ -217,56 +237,11 @@ router.post("/chat/stream", authenticate, async (req, res) => {
     }
 
     // Otherwise, send error as SSE
-    res.write(`data: ${JSON.stringify({ error: error.message })}\n\n`);
-    res.end();
-  }
-});
-
-// GET /api/user/:uid - Fetch user profile data by UID
-router.get("/user/:uid", authenticate, async (req, res) => {
-  try {
-    const { uid } = req.params;
-    const db = admin.firestore(); // Access Firestore
-    const userDoc = await db.collection("users").doc(uid).get();
-
-    if (!userDoc.exists) {
-      return res.status(404).json({ error: "User not found" });
+    if (!res.writableEnded) {
+      res.write(`data: ${JSON.stringify({ error: error.message })}\n\n`);
+      res.end();
     }
-
-    return res.status(200).json({
-      success: true,
-      data: userDoc.data(),
-    });
-  } catch (error) {
-    console.error("Error fetching user data:", error);
-    return res.status(500).json({
-      error: error.message || "An error occurred while fetching user data",
-    });
   }
 });
-
-// PUT /api/user/:uid - Update user profile data by UID
-router.put("/user/:uid", authenticate, async (req, res) => {
-  try {
-    const { uid } = req.params;
-    const updates = req.body; // Get updates from request body
-    const db = admin.firestore(); // Access Firestore
-
-    // Optional: Add validation here to ensure only allowed fields are updated
-
-    await db.collection("users").doc(uid).update(updates);
-
-    return res.status(200).json({
-      success: true,
-      message: "User data updated successfully",
-    });
-  } catch (error) {
-    console.error("Error updating user data:", error);
-    return res.status(500).json({
-      error: error.message || "An error occurred while updating user data",
-    });
-  }
-});
-
 
 module.exports = router;

@@ -34,30 +34,10 @@ router.post("/signup", async (req, res) => {
       emailVerified: false,
     });
 
-    // Create user document in Firestore
-    const db = admin.firestore();
-    await db.collection("users").doc(userRecord.uid).set({
-      full_name,
-      email,
-      phone,
-      password, // Consider the security note about storing passwords
-      preferred_language,
-      gender: gender || null, // Store optional fields, use null if not provided
-      date_of_birth: date_of_birth || null,
-      country_of_origin,
-      arrival_date_turkey: arrival_date_turkey || null,
-      current_city_district,
-      marital_status: marital_status || null,
-      education_level: education_level || null,
-      native_language,
-      additional_languages: additional_languages || [], // Use empty array if not provided
-      createdAt: admin.firestore.FieldValue.serverTimestamp(), // Add a timestamp
-    });
-
     return res.status(201).json({
       success: true,
       uid: userRecord.uid,
-      message: "User created successfully",
+      message: "User created successfully (Firestore document creation skipped)",
     });
   } catch (error) {
     console.error("Error creating user:", error);

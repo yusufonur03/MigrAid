@@ -17,6 +17,12 @@ import DijitalAjanda from './pages/DijitalAjanda';
 import IsEslestirme from './pages/IsEslestirme';
 import EgitimDilFirsatlari from './pages/EgitimDilFirsatlari';
 import YolHaritasi from './pages/YolHaritasi';
+import MainPage from './pages/users/MainPage'; // Import MainPage
+import UserYolHaritasi from './pages/users/YolHaritasi';
+import UserIsEslestirme from './pages/users/IsEslestirme';
+import UserFormYardimi from './pages/users/FormYardimi';
+import UserSohbetAsistani from './pages/users/SohbetAsistani';
+import UserKulturelRehber from './pages/users/KulturelRehber';
 
 import './App.css';
 
@@ -41,10 +47,16 @@ function App() {
         <Route path="/is-eslestirme" element={<IsEslestirme />} />
         <Route path="/egitim-dil-firsatlari" element={<EgitimDilFirsatlari />} />
         <Route path="/yolharitasi" element={<YolHaritasi />} />
+        <Route path="/users/main" element={<MainPage />} /> {/* Add route for MainPage */}
+        <Route path="/users/main/sohbetasistani" element={<UserSohbetAsistani />} />
+        <Route path="/users/main/kulturelrehber" element={<UserKulturelRehber />} />
+        <Route path="/users/main/formyardimi" element={<UserFormYardimi />} />
+        <Route path="/users/main/yolharitasi" element={<UserYolHaritasi />} />
+        <Route path="/users/main/iseslestirme" element={<UserIsEslestirme />} />
       </Routes>
       <Footer />
     </>
   );
 }
 
-export default App; 
+export default App;

@@ -1,0 +1,72 @@
+.welcome-section {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.welcome-section h1 {
+  color: var(--primary-blue);
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.features-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2.5rem; /* Add some space below the navigation bar */
+}
+
+.features-row {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  margin: 1.25rem auto; /* Adjusted margin between rows */
+  max-width: 1200px;
+  background: transparent;
+  flex-wrap: wrap;
+}
+
+.feature-card {
+  background: var(--background);
+  border-radius: 1.5rem;
+  box-shadow: 0 2px 12px rgba(74, 144, 226, 0.08);
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  min-width: 180px;
+  max-width: 220px;
+  text-align: center;
+  margin: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.feature-icon {
+  font-size: 2.8rem;
+  color: var(--primary-blue);
+  background: var(--background-alt);
+  border-radius: 50%;
+  padding: 0.7rem;
+  margin-bottom: 0.7rem;
+  box-shadow: 0 2px 8px rgba(74, 144, 226, 0.10);
+}
+
+.feature-title-link {
+  color: var(--primary-blue);
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+  display: inline-block;
+  transition: color 0.2s;
+}
+
+.feature-title-link:hover {
+  color: var(--olive-green);
+  text-decoration: underline;
+}
+
+.feature-desc {
+  font-size: 0.98rem;
+  color: #444;
+}

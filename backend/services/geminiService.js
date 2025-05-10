@@ -12,7 +12,7 @@ const genAI = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
 const defaultModel = "gemini-2.0-flash";
 
 // System prompts for different functionalities
-const systemPrompts = require('../config/systemPrompts.json');
+const systemPrompts = require("../config/systemPrompts.json");
 
 /**
  * Sends a prompt to the Gemini API with a specific system prompt
@@ -86,14 +86,30 @@ async function* streamPrompt(prompt, systemPromptType = "chat", options = {}, hi
 
     // Send the prompt to Gemini API with streaming
     const result = await genAI.models.generateContentStream({
-      model: defaultModel, // Specify the model here
+      model: defaultModel,
       contents: contents,
       generationConfig,
     });
 
+    // Check if stream exists before attempting to iterate over it
+    if (!result.stream && !result[Symbol.asyncIterator]) {
+      throw new Error(
+        "Gemini API response doesn't support streaming. Check API key, model, input, or potential content safety flags."
+      );
+    }
+
+    // Determine how to iterate through the stream based on the API response structure
+    const stream = result.stream || result;
+
     // Yield each chunk as it comes in
-    for await (const chunk of result.stream) {
-      yield chunk.text; // Access text directly from chunk
+    for await (const chunk of stream) {
+      if (chunk.text) {
+        yield chunk.text;
+      } else if (typeof chunk === "string") {
+        yield chunk;
+      } else if (chunk.candidates && chunk.candidates[0]?.content?.parts[0]?.text) {
+        yield chunk.candidates[0].content.parts[0].text;
+      }
     }
   } catch (error) {
     console.error("Error in Gemini API streaming:", error);

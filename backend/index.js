@@ -5,10 +5,12 @@ const cors = require("cors");
 require("dotenv").config();
 console.log("Environment variables loaded.");
 
-// Import routes and Firebase auth
+// Import routes and Firebase config
 const authRoutes = require("./routes/auth");
 const apiRoutes = require("./routes/api");
-const { auth } = require("./config/firebase"); // Import auth here
+// Import only the initialized app instance from firebase.js
+const { app: firebaseInitializedApp, auth } = require("./config/firebase"); 
+const firebaseAdmin = require('firebase-admin'); // Import firebase-admin directly
 console.log("Route and auth modules imported.");
 
 const app = express();
@@ -17,12 +19,14 @@ const port = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
+
+// Middleware to attach firestore instance to request for /api routes
 console.log("Middleware applied.");
 
 // Route definitions
 console.log("Defining routes...");
 app.use("/api/auth", authRoutes);
-app.use("/api", apiRoutes);
+app.use("/api", apiRoutes); // Remove attachFirestore middleware
 console.log("Routes defined.");
 
 // Root route
