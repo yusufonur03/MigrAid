@@ -52,11 +52,10 @@ Tamam kanka, anladım. Daha net, daha vurucu ve kültürel entegrasyonu öne ç�
 ---
 
 **Teknik Altyapı (Özet):**
-*   **Backend:** Python (FastAPI), Firebase
-*   **Frontend:** React Native / Flutter (Mobil Uygulama)
-*   **AI Modelleri:** Gemini API, BERT, Sentiment Analyzer (ve kültürel içerik için özel eğitilmiş modeller)
-*   **Veritabanı/Araçlar:** VectorDB (FAISS), Form motoru, Güvenli belge yönetimi
-*   **Dil İşleme:** Gelişmiş Çok Dilli NLP
+*   **Backend:** Javascript
+*   **Frontend:** React
+*   **AI Modelleri:** Gemini API,
+*   **Veritabanı/Araçlar:** Google Firebase
 
 ---
 
