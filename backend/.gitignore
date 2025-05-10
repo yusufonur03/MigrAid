@@ -1,5 +1,6 @@
 # Dependencies
 node_modules/
+frontend/node_modules/
 
 # Environment variables
 .env
@@ -35,4 +36,4 @@ coverage
 
 # OS files
 .DS_Store
-Thumbs.db 
+Thumbs.db
