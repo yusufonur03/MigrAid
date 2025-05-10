@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
-import logo from '../assets/migraid.png';
-import '../components/Navigation.css';
-import './Login.css';
-import { Link, useNavigate } from 'react-router-dom';
-import app from '../firebaseConfig'; // Import the Firebase app
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'; // Import auth functions
+import React, { useState, useEffect } from "react";
+import logo from "../assets/migraid.png";
+import "../components/Navigation.css";
+import "./Login.css";
+import { Link, useNavigate } from "react-router-dom";
+import app from "../firebaseConfig"; // Import the Firebase app
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth"; // Import auth functions
+import { handleAuthRedirect } from "../utils/auth"; // Import auth utility
 
 function Navigation() {
   return (
     <nav className="nav-bar">
       <div className="nav-logo">
         <Link to="/">
-          <img src={logo} alt="MigrAid Logo" style={{ cursor: 'pointer' }} />
+          <img src={logo} alt="MigrAid Logo" style={{ cursor: "pointer" }} />
         </Link>
       </div>
       <div className="nav-links">
@@ -23,12 +24,17 @@ function Navigation() {
 }
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const auth = getAuth(app); // Get Firebase Auth instance
+
+  // Check for token when component mounts and redirect if already logged in
+  useEffect(() => {
+    handleAuthRedirect(navigate, "auth");
+  }, [navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -40,16 +46,16 @@ function Login() {
       const idToken = await user.getIdToken(); // Get the ID token
 
       // Store the ID token in localStorage
-      localStorage.setItem('firebaseIdToken', idToken);
-      console.log('Firebase ID token stored in localStorage.');
+      localStorage.setItem("firebaseIdToken", idToken);
+      console.log("Firebase ID token stored in localStorage.");
 
       try {
         // Fetch user's name and surname from your backend
         // Use relative path for API calls to leverage Vite proxy
-        const response = await fetch(`/api/user/${user.uid}`, { // Changed to relative path
+        const response = await fetch(`/api/user/${user.uid}`, {
           headers: {
-            'Authorization': `Bearer ${idToken}` // Include the ID token in the Authorization header
-          }
+            Authorization: `Bearer ${idToken}`, // Include the ID token in the Authorization header
+          },
         });
         if (!response.ok) {
           // Try to parse error from backend if available
@@ -68,12 +74,12 @@ function Login() {
         const fullName = responseData.data.full_name;
 
         // Split full_name into name and surname (assuming format "Name Surname")
-        const nameParts = fullName.split(' ');
+        const nameParts = fullName.split(" ");
         const name = nameParts[0];
-        const surname = nameParts.slice(1).join(' '); // Handle cases with multiple surname parts
+        const surname = nameParts.slice(1).join(" "); // Handle cases with multiple surname parts
 
         // Redirect to main page on successful login, passing user data
-        navigate('/users/main', { state: { name, surname, uid: user.uid, token: idToken } }); // Also passing uid and token for potential use
+        navigate("/users/main", { state: { name, surname, uid: user.uid, token: idToken } }); // Also passing uid and token for potential use
       } catch (fetchError) {
         console.error("Error fetching user data:", fetchError);
         // If fetching user data fails, still navigate but without name/surname.
@@ -81,10 +87,9 @@ function Login() {
         setError(`Login successful, but failed to fetch user details: ${fetchError.message}. You will be redirected.`);
         // Wait a bit before redirecting so user can see the message
         setTimeout(() => {
-          navigate('/users/main', { state: { uid: user.uid, token: idToken } }); // Pass uid and token
+          navigate("/users/main", { state: { uid: user.uid, token: idToken } }); // Pass uid and token
         }, 2000);
       }
-
     } catch (error) {
       setError(error.message);
       console.error("Login error:", error.message);
@@ -113,7 +118,7 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)}
             />
             <button type="submit">Giriş Yap</button>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {error && <p style={{ color: "red" }}>{error}</p>}
           </form>
         </div>
       </div>

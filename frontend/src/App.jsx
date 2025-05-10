@@ -1,30 +1,31 @@
-import { Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Register from './pages/Register';
-import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
-import Extra from './pages/Extra';
-import EHizmetler from './pages/EHizmetler';
-import Kurumlar from './pages/Kurumlar';
-import Belediyeler from './pages/Belediyeler';
-import Firmalar from './pages/Firmalar';
-import Universiteler from './pages/Universiteler';
-import SohbetAsistani from './pages/SohbetAsistani';
-import Footer from './components/Footer';
-import KulturelRehber from './pages/KulturelRehber';
-import FormYardimi from './pages/FormYardimi';
-import DijitalAjanda from './pages/DijitalAjanda';
-import IsEslestirme from './pages/IsEslestirme';
-import EgitimDilFirsatlari from './pages/EgitimDilFirsatlari';
-import YolHaritasi from './pages/YolHaritasi';
-import MainPage from './pages/users/MainPage'; // Import MainPage
-import UserYolHaritasi from './pages/users/YolHaritasi';
-import UserIsEslestirme from './pages/users/IsEslestirme';
-import UserFormYardimi from './pages/users/FormYardimi';
-import UserSohbetAsistani from './pages/users/SohbetAsistani';
-import UserKulturelRehber from './pages/users/KulturelRehber';
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import Extra from "./pages/Extra";
+import EHizmetler from "./pages/EHizmetler";
+import Kurumlar from "./pages/Kurumlar";
+import Belediyeler from "./pages/Belediyeler";
+import Firmalar from "./pages/Firmalar";
+import Universiteler from "./pages/Universiteler";
+import SohbetAsistani from "./pages/SohbetAsistani";
+import Footer from "./components/Footer";
+import KulturelRehber from "./pages/KulturelRehber";
+import FormYardimi from "./pages/FormYardimi";
+import DijitalAjanda from "./pages/DijitalAjanda";
+import IsEslestirme from "./pages/IsEslestirme";
+import EgitimDilFirsatlari from "./pages/EgitimDilFirsatlari";
+import YolHaritasi from "./pages/YolHaritasi";
+import MainPage from "./pages/users/MainPage"; // Import MainPage
+import UserYolHaritasi from "./pages/users/YolHaritasi";
+import UserIsEslestirme from "./pages/users/IsEslestirme";
+import UserFormYardimi from "./pages/users/FormYardimi";
+import UserSohbetAsistani from "./pages/users/SohbetAsistani";
+import UserKulturelRehber from "./pages/users/KulturelRehber";
+import ProtectedRoute from "./components/ProtectedRoute"; // Import the ProtectedRoute component
 
-import './App.css';
+import "./App.css";
 
 function App() {
   return (
@@ -47,12 +48,56 @@ function App() {
         <Route path="/is-eslestirme" element={<IsEslestirme />} />
         <Route path="/egitim-dil-firsatlari" element={<EgitimDilFirsatlari />} />
         <Route path="/yolharitasi" element={<YolHaritasi />} />
-        <Route path="/users/main" element={<MainPage />} /> {/* Add route for MainPage */}
-        <Route path="/users/main/sohbetasistani" element={<UserSohbetAsistani />} />
-        <Route path="/users/main/kulturelrehber" element={<UserKulturelRehber />} />
-        <Route path="/users/main/formyardimi" element={<UserFormYardimi />} />
-        <Route path="/users/main/yolharitasi" element={<UserYolHaritasi />} />
-        <Route path="/users/main/iseslestirme" element={<UserIsEslestirme />} />
+
+        {/* Protected user routes */}
+        <Route
+          path="/users/main"
+          element={
+            <ProtectedRoute>
+              <MainPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/users/main/sohbetasistani"
+          element={
+            <ProtectedRoute>
+              <UserSohbetAsistani />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/users/main/kulturelrehber"
+          element={
+            <ProtectedRoute>
+              <UserKulturelRehber />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/users/main/formyardimi"
+          element={
+            <ProtectedRoute>
+              <UserFormYardimi />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/users/main/yolharitasi"
+          element={
+            <ProtectedRoute>
+              <UserYolHaritasi />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/users/main/iseslestirme"
+          element={
+            <ProtectedRoute>
+              <UserIsEslestirme />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       <Footer />
     </>
