@@ -44,8 +44,8 @@ Tamam kanka, anladım. Daha net, daha vurucu ve kültürel entegrasyonu öne ç�
 **Teknik Altyapı (Özet):**
 *   **Backend:** Javascript, express js
 *   **Frontend:** React
-*   **AI Modelleri:** Gemini API,
-*   **Veritabanı/Araçlar:** Google Firebase
+*   **AI Modelleri:** Gemini API
+*   **Veritabanı/Araçlar:** Google Firebase + google firestore 
 
 ---
 

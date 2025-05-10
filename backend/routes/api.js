@@ -14,8 +14,9 @@ const { sendPrompt, streamPrompt } = require("../services/geminiService");
 
 // POST /api/chat - Generic chat endpoint
 router.post("/chat", authenticate, async (req, res) => {
+  console.log("POST /api/chat endpoint hit");
   try {
-    const { prompt, language } = req.body;
+    const { prompt, language, history } = req.body;
 
     if (!prompt) {
       return res.status(400).json({ error: "Prompt is required" });
@@ -26,7 +27,7 @@ router.post("/chat", authenticate, async (req, res) => {
       language: language || "en",
     };
 
-    const response = await sendPrompt(prompt, "chat", options);
+    const response = await sendPrompt(prompt, "chat", options, history);
 
     return res.status(200).json({
       success: true,
@@ -178,7 +179,7 @@ router.post("/skill-match", authenticate, async (req, res) => {
 // POST /api/chat/stream - Streaming chat endpoint
 router.post("/chat/stream", authenticate, async (req, res) => {
   try {
-    const { prompt, language } = req.body;
+    const { prompt, language, history } = req.body;
 
     if (!prompt) {
       return res.status(400).json({ error: "Prompt is required" });
@@ -195,7 +196,7 @@ router.post("/chat/stream", authenticate, async (req, res) => {
     };
 
     // Use the streaming function
-    const stream = streamPrompt(prompt, "chat", options);
+    const stream = streamPrompt(prompt, "chat", options, history);
 
     // Stream each chunk to the client
     for await (const chunk of stream) {

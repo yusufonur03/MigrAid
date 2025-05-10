@@ -2,6 +2,7 @@ const { auth } = require("../config/firebase");
 
 // Middleware to authenticate the user using Firebase auth token
 const authenticate = async (req, res, next) => {
+  console.log("Authenticate middleware hit");
   try {
     const authHeader = req.headers.authorization;
 
@@ -10,9 +11,11 @@ const authenticate = async (req, res, next) => {
     }
 
     const idToken = authHeader.split("Bearer ")[1];
+    console.log("Token extracted, attempting verification");
 
     try {
       const decodedToken = await auth.verifyIdToken(idToken);
+      console.log("Token verified successfully");
       req.user = decodedToken;
       return next();
     } catch (error) {
@@ -20,7 +23,7 @@ const authenticate = async (req, res, next) => {
       return res.status(401).json({ error: "Unauthorized: Invalid token" });
     }
   } catch (error) {
-    console.error("Authentication error:", error);
+    console.error("Authentication error in outer catch:", error);
     return res.status(500).json({ error: "Internal server error during authentication" });
   }
 };
