@@ -1,1 +1,2 @@
-frontend/
+frontend/src/firebaseConfig.js
+frontend/node_modules/

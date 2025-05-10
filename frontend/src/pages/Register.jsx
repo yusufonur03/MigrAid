@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/migraid.png';
 import './Register.css';
+import app from '../firebaseConfig'; // Import the Firebase app
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'; // Import auth functions
 
 function Navigation() {
   return (
@@ -38,6 +40,10 @@ function Register() {
     nativeLanguage: '',
     extraLanguages: '',
   });
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  const auth = getAuth(app); // Get Firebase Auth instance
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -46,17 +52,38 @@ function Register() {
 
   const handleNext = e => {
     e.preventDefault();
+    // Basic validation for step 1
+    if (form.password !== form.passwordRepeat) {
+      setError("Passwords do not match.");
+      return;
+    }
+    setError(null);
     setStep(2);
   };
 
   const handleBack = e => {
     e.preventDefault();
+    setError(null);
     setStep(1);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert('Kayıt başarılı! (Demo)');
+    setError(null); // Clear previous errors
+
+    if (form.password !== form.passwordRepeat) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    try {
+      await createUserWithEmailAndPassword(auth, form.email, form.password);
+      // Redirect to login page or home page on successful registration
+      navigate('/giris');
+    } catch (error) {
+      setError(error.message);
+      console.error("Registration error:", error.message);
+    }
   };
 
   return (
@@ -87,6 +114,7 @@ function Register() {
                 </select>
                 <input type="date" name="birthDate" placeholder="Doğum Tarihi" value={form.birthDate} onChange={handleChange} required />
                 <button type="submit">Devam Et</button>
+                {error && <p style={{ color: 'red', marginTop: '1rem' }}>{error}</p>}
               </>
             )}
             {step === 2 && (
@@ -103,6 +131,7 @@ function Register() {
                   <button type="button" onClick={handleBack} style={{ flex: 1, background: '#ccc', color: '#222' }}>Geri</button>
                   <button type="submit" style={{ flex: 2 }}>Kaydı Tamamla</button>
                 </div>
+                {error && <p style={{ color: 'red', marginTop: '1rem' }}>{error}</p>}
               </>
             )}
           </form>
@@ -112,4 +141,4 @@ function Register() {
   );
 }
 
-export default Register; 
+export default Register;
