@@ -1,0 +1,58 @@
+.signupkismi-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  position: relative;
+  z-index: 1;
+}
+
+.signupkismi-form {
+  background: rgba(255,255,255,0.92);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(44,82,130,0.10);
+  padding: 2.5rem 2.2rem 2rem 2.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  min-width: 320px;
+  max-width: 90vw;
+}
+
+.signupkismi-form h2 {
+  margin: 0 0 0.5rem 0;
+  color: #2c5282;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.signupkismi-form input {
+  padding: 0.8rem 1rem;
+  border: 1px solid #bcdffb;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.signupkismi-form input:focus {
+  border: 1.5px solid #4a90e2;
+}
+
+.signupkismi-form button {
+  padding: 0.8rem 1rem;
+  background: #2c5282;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.signupkismi-form button:hover {
+  background: #17406a;
+} 

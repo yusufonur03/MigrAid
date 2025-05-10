@@ -1,0 +1,128 @@
+.mid-footer {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-height: 650px;
+  padding: 0;
+  margin: 0;
+  z-index: 1;
+}
+
+.mid-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('../assets/aile.png') center 25% no-repeat;
+  background-size: cover;
+  filter: blur(4px);
+  z-index: 0;
+}
+
+.mid-footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  gap: 2rem;
+  padding: 0 1rem;
+}
+
+.mid-footer-section {
+  flex: 1;
+}
+
+.mid-footer-section h3 {
+  color: #2c5282;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.mid-footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mid-footer-section ul li {
+  margin-bottom: 0.75rem;
+}
+
+.mid-footer-section ul li a {
+  color: #4a5568;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.mid-footer-section ul li a:hover {
+  color: #2b6cb0;
+}
+
+.mid-footer-section ul li:not(:has(a)) {
+  color: #4a5568;
+}
+
+.login-form-wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.login-form {
+  background: rgba(255,255,255,0.92);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(44,82,130,0.10);
+  padding: 2.5rem 2.2rem 2rem 2.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  min-width: 320px;
+  max-width: 90vw;
+  align-items: center;
+}
+
+.login-form h2 {
+  margin: 0 0 0.5rem 0;
+  color: #2c5282;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.login-form input {
+  padding: 0.8rem 1rem;
+  border: 1px solid #bcdffb;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.login-form input:focus {
+  border: 1.5px solid #4a90e2;
+}
+
+.login-form button {
+  padding: 0.8rem 1rem;
+  background: #2c5282;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.login-form button:hover {
+  background: #17406a;
+} 

@@ -1,0 +1,69 @@
+:root {
+  --primary-blue: #4A90E2;
+  --primary-blue-light: #6AAFE6;
+  --olive-green: #7BB274;
+  --olive-green-light: #A2C28C;
+  --background: #F7F9FB;
+  --background-alt: #F4F4F4;
+  --earth-tone: #DAB785;
+  --earth-tone-dark: #B68D40;
+  --coral: #E57373;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  background: var(--background);
+  color: #222;
+}
+
+.container {
+  max-width: 400px;
+  margin: 3rem auto;
+  background: var(--background-alt);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(74, 144, 226, 0.08);
+}
+
+h1, h2 {
+  color: var(--primary-blue);
+}
+
+nav a {
+  color: var(--primary-blue);
+  text-decoration: none;
+  margin: 0 0.5rem;
+  font-weight: 500;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+input, button {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+button {
+  background: var(--primary-blue);
+  color: #fff;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: var(--primary-blue-light);
+}
+
+form {
+  margin-top: 1.5rem;
+} 
