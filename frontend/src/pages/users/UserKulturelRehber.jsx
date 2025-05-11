@@ -89,7 +89,7 @@ function UserKulturelRehber() {
       <div style={{ padding: "20px", maxWidth: "800px", margin: "0 auto", width: "100%" }}>
         <h1 style={{ textAlign: "center", margin: "20px 0" }}>Türk Kültürü Rehberi</h1>
         <p style={{ textAlign: "center", marginBottom: "20px" }}>
-          Learn about Turkish culture, social norms, traditions, and language.
+          Türk kültürü, sosyal normları, gelenekleri ve dili hakkında bilgi edinin.
         </p>
 
         <div style={{ display: "flex", justifyContent: "center", marginBottom: "30px" }}>

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Navigation from "../../components/Navigation";
 
 function UserYolHaritasi() {
-  const [inputPrompt, setInputPrompt] = useState("");
   const [background, setBackground] = useState(""); // Optional
   const [goals, setGoals] = useState(""); // Optional
   const [response, setResponse] = useState("");
@@ -10,7 +9,11 @@ function UserYolHaritasi() {
   const [error, setError] = useState("");
 
   const handleSubmitPrompt = async () => {
-    if (!inputPrompt.trim()) return;
+    // En az bir veri alanı dolu olmalı
+    if (!background.trim() && !goals.trim()) {
+      setError("Lütfen en az bir alanı doldurun.");
+      return;
+    }
 
     setIsLoading(true);
     setResponse("");
@@ -31,8 +34,8 @@ function UserYolHaritasi() {
       }
 
       const payload = {
-        prompt: inputPrompt,
-        // language: 'en' // Optional
+        prompt: "Türkiye'de yaşamaya uyum sağlamak için kişisel bir yol haritası oluştur.",
+        // language: 'tr' // Optional
       };
       if (background.trim()) {
         payload.background = background.trim();
@@ -61,112 +64,326 @@ function UserYolHaritasi() {
       }
     } catch (err) {
       console.error("Error fetching roadmap:", err);
-      setError(`Sorry, I couldn't generate your integration roadmap: ${err.message}`);
+      setError(`Üzgünüm, uyum yol haritanızı oluşturamadım: ${err.message}`);
       setResponse("");
     } finally {
       setIsLoading(false);
     }
   };
 
+  // Custom component to render formatted text with styled elements
+  const FormattedText = ({ text }) => {
+    if (!text) return null;
+
+    // Split the text by lines to handle different formatting per line
+    const lines = text.split("\n");
+
+    return (
+      <div className="formatted-response">
+        {lines.map((line, index) => {
+          // Handle headers (lines starting with ##)
+          if (line.trim().startsWith("##")) {
+            return (
+              <h3 key={index} style={{ color: "#2b6cb0", marginTop: "15px", marginBottom: "8px", fontWeight: "600" }}>
+                {line.replace(/^##\s*/, "")}
+              </h3>
+            );
+          }
+
+          // Handle subheaders (lines starting with ###)
+          if (line.trim().startsWith("###")) {
+            return (
+              <h4 key={index} style={{ color: "#3182ce", marginTop: "12px", marginBottom: "5px" }}>
+                {line.replace(/^###\s*/, "")}
+              </h4>
+            );
+          }
+
+          // Highlight keywords with colons (for example: "Adım 1:")
+          const keywordMatch = line.match(/^([A-Za-zçğıöşüÇĞİÖŞÜ0-9\s]+):\s/);
+          if (keywordMatch) {
+            const keyword = keywordMatch[1];
+            return (
+              <p key={index} style={{ marginBottom: "5px" }}>
+                <span style={{ color: "#2b6cb0", fontWeight: "bold" }}>{keyword}:</span>
+                {line.substring(keyword.length + 1)}
+              </p>
+            );
+          }
+
+          // Handle bullet points (lines starting with -)
+          if (line.trim().startsWith("-")) {
+            return (
+              <div key={index} style={{ marginLeft: "10px", marginBottom: "5px", display: "flex" }}>
+                <span style={{ color: "#3182ce", marginRight: "8px" }}>•</span>
+                <span>{line.replace(/^-\s*/, "")}</span>
+              </div>
+            );
+          }
+
+          // Handle bold text (**text**)
+          const parts = [];
+          let lastIndex = 0;
+          let boldMatch;
+          const boldRegex = /\*\*([^*]+)\*\*/g;
+
+          while ((boldMatch = boldRegex.exec(line)) !== null) {
+            // Add text before the bold part
+            if (boldMatch.index > lastIndex) {
+              parts.push(<span key={`${index}-${lastIndex}`}>{line.substring(lastIndex, boldMatch.index)}</span>);
+            }
+
+            // Add the bold part
+            parts.push(
+              <span key={`${index}-bold-${boldMatch.index}`} style={{ color: "#2b6cb0", fontWeight: "bold" }}>
+                {boldMatch[1]}
+              </span>
+            );
+
+            lastIndex = boldMatch.index + boldMatch[0].length;
+          }
+
+          // Add any remaining text
+          if (lastIndex < line.length) {
+            parts.push(<span key={`${index}-${lastIndex}`}>{line.substring(lastIndex)}</span>);
+          }
+
+          // If we found bold parts, return them, otherwise return the line as is
+          return parts.length > 0 ? (
+            <p key={index} style={{ marginBottom: "5px" }}>
+              {parts}
+            </p>
+          ) : (
+            <p key={index} style={{ marginBottom: "5px" }}>
+              {line}
+            </p>
+          );
+        })}
+      </div>
+    );
+  };
+
   return (
-    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh", backgroundColor: "#f5f7fa" }}>
       <Navigation showAuthButtons={false} />
-      <div style={{ padding: "20px", maxWidth: "800px", margin: "0 auto", width: "100%" }}>
-        <h1 style={{ textAlign: "center", margin: "20px 0" }}>Kişisel Uyum Yol Haritası</h1>
-        <p style={{ textAlign: "center", marginBottom: "10px" }}>
-          Create a personalized roadmap for your integration journey in Türkiye.
-        </p>
-        <textarea
-          value={background}
-          onChange={(e) => setBackground(e.target.value)}
-          placeholder="Optional: Tell us about your background (education, country of origin, etc.)"
-          disabled={isLoading}
-          rows="2"
+
+      <div
+        style={{
+          padding: "30px",
+          maxWidth: "900px",
+          margin: "30px auto",
+          width: "100%",
+          backgroundColor: "#ffffff",
+          borderRadius: "12px",
+          boxShadow: "0 5px 15px rgba(0,0,0,0.05)",
+          marginTop: "30px",
+          marginBottom: "30px",
+        }}
+      >
+        <h1
           style={{
-            width: "calc(100% - 22px)",
-            padding: "10px",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-            marginBottom: "10px",
-            resize: "vertical",
+            textAlign: "center",
+            margin: "10px 0 25px",
+            color: "#2e3b55",
+            fontSize: "2.2rem",
           }}
-        />
-        <textarea
-          value={goals}
-          onChange={(e) => setGoals(e.target.value)}
-          placeholder="Optional: What are your goals in Türkiye? (e.g., career, education, settlement)"
-          disabled={isLoading}
-          rows="2"
+        >
+          Kişisel Uyum Yol Haritası
+        </h1>
+
+        <div
           style={{
-            width: "calc(100% - 22px)",
-            padding: "10px",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-            marginBottom: "10px",
-            resize: "vertical",
+            backgroundColor: "#e9f7fe",
+            padding: "15px",
+            borderRadius: "8px",
+            marginBottom: "25px",
+            borderLeft: "4px solid #3498db",
           }}
-        />
-        <div style={{ display: "flex", marginBottom: "20px" }}>
-          <textarea
-            value={inputPrompt}
-            onChange={(e) => setInputPrompt(e.target.value)}
-            placeholder="Ask for integration guidance or specific steps for adapting to life in Türkiye..."
-            disabled={isLoading}
-            rows="3"
-            style={{
-              flexGrow: 1,
-              padding: "10px",
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-              marginRight: "10px",
-              resize: "vertical",
-            }}
-          />
-          <button
-            onClick={handleSubmitPrompt}
-            disabled={isLoading}
-            style={{
-              padding: "10px 15px",
-              borderRadius: "5px",
-              border: "none",
-              backgroundColor: "#007bff",
-              color: "white",
-              cursor: "pointer",
-              alignSelf: "flex-end",
-            }}
-          >
-            {isLoading ? "Creating..." : "Create Roadmap"}
-          </button>
+        >
+          <p style={{ textAlign: "center", margin: 0, color: "#2c3e50" }}>
+            Türkiye'deki yeni hayatınız için adım adım rehber oluşturun ve kültürel uyum sürecinizi kolaylaştırın.
+          </p>
         </div>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "20px",
+            marginBottom: "25px",
+          }}
+        >
+          <div>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "8px",
+                fontWeight: "500",
+                color: "#4a5568",
+              }}
+            >
+              Arka Planınız
+            </label>
+            <textarea
+              value={background}
+              onChange={(e) => setBackground(e.target.value)}
+              placeholder="Eğitiminiz, geldiğiniz ülke, konuştuğunuz diller, vs."
+              disabled={isLoading}
+              rows="3"
+              style={{
+                width: "100%",
+                padding: "12px",
+                borderRadius: "8px",
+                border: "1px solid #e2e8f0",
+                marginBottom: "10px",
+                resize: "vertical",
+                fontFamily: "inherit",
+                boxSizing: "border-box",
+                transition: "border-color 0.3s",
+                backgroundColor: "#f8fafc",
+              }}
+            />
+          </div>
+
+          <div>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "8px",
+                fontWeight: "500",
+                color: "#4a5568",
+              }}
+            >
+              Hedefleriniz
+            </label>
+            <textarea
+              value={goals}
+              onChange={(e) => setGoals(e.target.value)}
+              placeholder="Türkiye'deki hedefleriniz neler? (kariyer, eğitim, yerleşim, vb.)"
+              disabled={isLoading}
+              rows="3"
+              style={{
+                width: "100%",
+                padding: "12px",
+                borderRadius: "8px",
+                border: "1px solid #e2e8f0",
+                marginBottom: "10px",
+                resize: "vertical",
+                fontFamily: "inherit",
+                boxSizing: "border-box",
+                transition: "border-color 0.3s",
+                backgroundColor: "#f8fafc",
+              }}
+            />
+          </div>
+        </div>
+
+        <button
+          onClick={handleSubmitPrompt}
+          disabled={isLoading}
+          style={{
+            width: "100%",
+            padding: "15px 30px",
+            borderRadius: "8px",
+            border: "none",
+            backgroundColor: "#3182ce",
+            color: "white",
+            cursor: isLoading ? "wait" : "pointer",
+            fontWeight: "600",
+            fontSize: "16px",
+            transition: "background-color 0.3s",
+            marginBottom: "25px",
+            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+          }}
+        >
+          {isLoading ? <span>Aranıyor...</span> : <span>Kişisel Uyum Planımı Oluştur</span>}
+        </button>
 
         {error && (
           <div
             style={{
-              backgroundColor: "#f8d7da",
-              color: "#721c24",
-              padding: "10px",
-              borderRadius: "5px",
+              backgroundColor: "#fff5f5",
+              color: "#c53030",
+              padding: "12px 15px",
+              borderRadius: "8px",
               marginBottom: "20px",
-              border: "1px solid #f5c6cb",
+              border: "1px solid #fed7d7",
             }}
           >
             {error}
           </div>
         )}
 
-        {response && (
+        {isLoading && (
+          <div
+            style={{
+              textAlign: "center",
+              padding: "30px",
+              backgroundColor: "#f7fafc",
+              borderRadius: "8px",
+              color: "#4a5568",
+            }}
+          >
+            <div style={{ marginBottom: "15px" }}>Yol haritanız oluşturuluyor...</div>
+            <div
+              style={{
+                display: "inline-block",
+                width: "50px",
+                height: "50px",
+                border: "5px solid rgba(0, 0, 0, 0.1)",
+                borderTopColor: "#3182ce",
+                borderRadius: "50%",
+                animation: "spin 1s ease-in-out infinite",
+              }}
+            />
+            <style>{`
+              @keyframes spin {
+                to { transform: rotate(360deg); }
+              }
+            `}</style>
+          </div>
+        )}
+
+        {response && !isLoading && (
           <div
             style={{
               marginTop: "20px",
-              padding: "15px",
-              border: "1px solid #eee",
-              borderRadius: "5px",
-              backgroundColor: "#f9f9f9",
-              whiteSpace: "pre-wrap",
+              borderRadius: "10px",
+              overflow: "hidden",
             }}
           >
-            <h3>Your Personalized Integration Roadmap:</h3>
-            <p>{response}</p>
+            <div
+              style={{
+                backgroundColor: "#ebf8ff",
+                padding: "15px 20px",
+                borderBottom: "1px solid #bee3f8",
+                borderTopLeftRadius: "10px",
+                borderTopRightRadius: "10px",
+              }}
+            >
+              <h3
+                style={{
+                  margin: "0",
+                  color: "#2b6cb0",
+                  fontSize: "1.25rem",
+                }}
+              >
+                Kişisel Uyum Yol Haritanız
+              </h3>
+            </div>
+            <div
+              style={{
+                padding: "20px",
+                backgroundColor: "#f7fafc",
+                borderBottomLeftRadius: "10px",
+                borderBottomRightRadius: "10px",
+                boxShadow: "inset 0 2px 4px rgba(0,0,0,0.06)",
+                whiteSpace: "pre-wrap",
+                lineHeight: "1.6",
+              }}
+            >
+              <FormattedText text={response} />
+            </div>
           </div>
         )}
       </div>
