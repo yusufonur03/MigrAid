@@ -2,15 +2,15 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom'; // Import useLocation
 import { FaComments, FaGlobeEurope, FaWpforms, FaCalendarAlt, FaUserCog, FaMapSigns } from 'react-icons/fa'; // Importing some icons as placeholders
 import Navigation from '../../components/Navigation'; // Import Navigation component
-import './MainPage.css'; // Assuming a new CSS file for styling
+import './UserMainPage.css'; // CSS dosya adı güncellendi
 
-function MainPage() {
+function UserMainPage() { // Fonksiyon adı güncellendi
   const location = useLocation();
   const { name, surname } = location.state || { name: '[User Name]', surname: '[User Surname]' }; // Get name and surname from state or use placeholders
 
   return (
     <>
-      <Navigation showAuthButtons={false} /> {/* Add showAuthButtons={false} prop */}
+      <Navigation showAuthButtons={false} /> {/* Add Navigation bar */}
       <div className="welcome-section"> {/* New section for welcome message */}
 
         {/* TODO: Implement actual fetching of user's name and surname */}
@@ -59,4 +59,4 @@ function MainPage() {
   );
 }
 
-export default MainPage;
+export default UserMainPage;

@@ -53,8 +53,56 @@
   font-weight: 500;
   font-size: 1rem;
   transition: color 0.2s;
+  white-space: nowrap;
 }
 
 .nav-links a:hover {
   color: var(--olive-green);
-} 
+}
+
+/* REMOVED .nav-button styles are further down if needed, now using .logout-link */
+
+.logout-link {
+  background-color: #ef4444; /* Red background (e.g., Tailwind red-500) */
+  border: 1px solid #dc2626; /* Darker red border (e.g., Tailwind red-600) */
+  color: #ffffff !important; /* White text, !important to override general link color if needed */
+  padding: 0.3rem 0.7rem; /* Adjust padding as needed */
+  border-radius: 4px; /* Rounded corners */
+  margin-left: 1.5rem; /* Same margin as other links */
+  font-weight: 500; /* Same font-weight as other links */
+  font-size: 1rem; /* Same font-size as other links */
+  white-space: nowrap; /* Prevent text wrapping */
+  transition: background-color 0.2s, border-color 0.2s; /* Smooth transition for hover */
+  /* text-decoration: none; /* Ensure no underline - already set inline, but good for completeness */
+}
+
+.logout-link:hover {
+  background-color: #dc2626; /* Darker red background on hover */
+  border-color: #b91c1c; /* Even darker red border on hover */
+  color: #ffffff !important; /* Keep text white on hover */
+}
+
+/* Styles for the logout button to make it look like text (REMOVING THESE) */
+/*
+.nav-button {
+  background: none;
+  border: 1px solid #fca5a5; 
+  padding: 0.2rem 0.5rem; 
+  color: #fff; 
+  font-family: inherit; 
+  font-size: 1rem; 
+  font-weight: 500; 
+  cursor: pointer;
+  margin-left: 1.5rem; 
+  transition: color 0.2s, border-color 0.2s; 
+  white-space: nowrap; 
+  border-radius: 4px; 
+  position: relative; 
+  top: -1px; 
+}
+
+.nav-button:hover {
+  color: var(--olive-green); 
+  border-color: var(--olive-green); 
+}
+*/ 

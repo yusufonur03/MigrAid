@@ -17,13 +17,13 @@ import DijitalAjanda from "./pages/DijitalAjanda";
 import IsEslestirme from "./pages/IsEslestirme";
 import EgitimDilFirsatlari from "./pages/EgitimDilFirsatlari";
 import YolHaritasi from "./pages/YolHaritasi";
-import MainPage from "./pages/users/MainPage"; // Import MainPage
-import UserYolHaritasi from "./pages/users/YolHaritasi";
-import UserIsEslestirme from "./pages/users/IsEslestirme";
-import UserFormYardimi from "./pages/users/FormYardimi";
-import UserSohbetAsistani from "./pages/users/SohbetAsistani";
-import UserKulturelRehber from "./pages/users/KulturelRehber";
-import ProtectedRoute from "./components/ProtectedRoute"; // Import the ProtectedRoute component
+import UserMainPage from "./pages/users/UserMainPage";
+import UserYolHaritasi from "./pages/users/UserYolHaritasi";
+import UserIsEslestirme from "./pages/users/UserIsEslestirme";
+import UserFormYardimi from "./pages/users/UserFormYardimi";
+import UserSohbetAsistani from "./pages/users/UserSohbetAsistani";
+import UserKulturelRehber from "./pages/users/UserKulturelRehber";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 import "./App.css";
 
@@ -54,7 +54,7 @@ function App() {
           path="/users/main"
           element={
             <ProtectedRoute>
-              <MainPage />
+              <UserMainPage />
             </ProtectedRoute>
           }
         />

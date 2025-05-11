@@ -35,7 +35,10 @@ function Navigation({ showAuthButtons = true }) {
             <Link to="/giris">Giriş Yap</Link>
           </>
         ) : (
-          <button onClick={handleLogout} className="nav-button">Çıkış Yap</button>
+          <>
+            <Link to="/users/main">Profilim</Link>
+            <a href="#" onClick={handleLogout} className="logout-link" style={{cursor: 'pointer', textDecoration: 'none'}}>Çıkış Yap</a>
+          </>
         )}
       </div>
     </nav>
