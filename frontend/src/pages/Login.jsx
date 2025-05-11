@@ -26,7 +26,7 @@ function Navigation() {
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const auth = getAuth(app); // Get Firebase Auth instance
@@ -38,7 +38,7 @@ function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError(null); // Clear previous errors
+    setIsLoading(true);
 
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -51,7 +51,6 @@ function Login() {
 
       try {
         // Fetch user's name and surname from your backend
-        // Use relative path for API calls to leverage Vite proxy
         const response = await fetch(`/api/user/${user.uid}`, {
           headers: {
             Authorization: `Bearer ${idToken}`, // Include the ID token in the Authorization header
@@ -79,20 +78,19 @@ function Login() {
         const surname = nameParts.slice(1).join(" "); // Handle cases with multiple surname parts
 
         // Redirect to main page on successful login, passing user data
-        navigate("/users/main", { state: { name, surname, uid: user.uid, token: idToken } }); // Also passing uid and token for potential use
+        navigate("/users/main", { state: { name, surname, uid: user.uid, token: idToken } });
       } catch (fetchError) {
         console.error("Error fetching user data:", fetchError);
         // If fetching user data fails, still navigate but without name/surname.
         // The token is stored, so other authenticated routes should work.
-        setError(`Login successful, but failed to fetch user details: ${fetchError.message}. You will be redirected.`);
-        // Wait a bit before redirecting so user can see the message
         setTimeout(() => {
           navigate("/users/main", { state: { uid: user.uid, token: idToken } }); // Pass uid and token
-        }, 2000);
+        }, 1000);
       }
     } catch (error) {
-      setError(error.message);
+      // Only log the error to console, don't show it in the UI
       console.error("Login error:", error.message);
+      setIsLoading(false);
     }
   };
 
@@ -117,8 +115,9 @@ function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button type="submit">Giriş Yap</button>
-            {error && <p style={{ color: "red" }}>{error}</p>}
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? "Giriş Yapılıyor..." : "Giriş Yap"}
+            </button>
           </form>
         </div>
       </div>
