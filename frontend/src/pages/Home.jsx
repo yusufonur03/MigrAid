@@ -39,7 +39,7 @@ function Home() {
   }, []);
 
   // Alttaki slider için ayrı state ve görseller
-  const bottomSliderImages = [mig1, mig2, mig3, mig4, mig5];
+  const bottomSliderImages = [mig1, mig3, mig4, mig5];
   const [bottomCurrent, setBottomCurrent] = useState(0);
   useEffect(() => {
     const interval = setInterval(() => {
