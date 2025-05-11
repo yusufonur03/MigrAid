@@ -10,7 +10,7 @@ function MainPage() {
 
   return (
     <>
-      <Navigation /> {/* Add Navigation bar */}
+      <Navigation showAuthButtons={false} /> {/* Add showAuthButtons={false} prop */}
       <div className="welcome-section"> {/* New section for welcome message */}
 
         {/* TODO: Implement actual fetching of user's name and surname */}

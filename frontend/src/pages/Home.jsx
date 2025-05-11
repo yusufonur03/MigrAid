@@ -10,6 +10,7 @@ import mig5 from '../assets/mig5.png';
 import mig6 from '../assets/mig6.png';
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { isAuthenticated } from '../utils/auth';
 
 const sliderImages = [mig1, mig3, mig4, mig5, mig6];
 
@@ -33,9 +34,11 @@ function Home() {
     return () => clearInterval(interval);
   }, []);
 
+  const loggedIn = isAuthenticated();
+
   return (
     <>
-      <Navigation />
+      <Navigation showAuthButtons={!loggedIn} />
       <div className="hero-slider-section">
         <img src={sliderImages[current]} alt="slider" className="hero-slider-img" />
         <div className="hero-slider-overlay">
