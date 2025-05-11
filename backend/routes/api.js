@@ -4,6 +4,9 @@ const { authenticate } = require("../middleware/auth");
 // We will now use req.firestore, so admin import from firebase config is not strictly needed here for firestore
 // const { admin, auth, app: firebaseApp } = require("../config/firebase");
 
+// Import form routes
+const formRoutes = require("./formRoutes");
+
 // GET /api - Basic health check for the API routes
 router.get("/", (req, res) => {
   res.status(200).json({
@@ -13,6 +16,9 @@ router.get("/", (req, res) => {
 });
 
 const { sendPrompt, streamPrompt } = require("../services/geminiService");
+
+// Mount form routes
+router.use("/form-fill", formRoutes);
 
 // POST /api/chat - Generic chat endpoint
 router.post("/chat", authenticate, async (req, res) => {

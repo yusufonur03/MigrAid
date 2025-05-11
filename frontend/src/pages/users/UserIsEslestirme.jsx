@@ -70,7 +70,7 @@ function UserIsEslestirme() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-      <Navigation />
+      <Navigation showAuthButtons={false} />
       <div style={{ padding: "20px", maxWidth: "800px", margin: "0 auto", width: "100%" }}>
         <h1 style={{ textAlign: "center", margin: "20px 0" }}>Beceriye Göre İş Eşleştirme</h1>
         <p style={{ textAlign: "center", marginBottom: "10px" }}>

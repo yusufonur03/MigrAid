@@ -223,8 +223,8 @@ function UserFormYardimi() {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh", backgroundColor: "#f8f9fa" }}>
-      <Navigation />
+    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh", backgroundColor: "#ffffff" }}>
+      <Navigation showAuthButtons={false} />
       <div style={{ padding: "30px", maxWidth: "900px", margin: "0 auto", width: "100%" }}>
         <h1
           style={{
@@ -433,7 +433,7 @@ function UserFormYardimi() {
                   height="24"
                   viewBox="0 0 24 24"
                   fill="none"
-                  stroke="currentColor"
+                  stroke="white"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -441,7 +441,9 @@ function UserFormYardimi() {
                   <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                 </svg>
               </div>
-              <h2 style={{ margin: 0, fontSize: "18px", fontWeight: "600" }}>Form Asistanı</h2>
+              <h2 style={{ margin: 0, fontSize: "18px", fontWeight: "600", color: "#ffffff" }}>
+                Form Doldurma Asistanı
+              </h2>
             </div>
 
             <div
@@ -450,7 +452,7 @@ function UserFormYardimi() {
                 height: "500px",
                 overflowY: "auto",
                 padding: "20px",
-                backgroundColor: "#f8f9fa",
+                backgroundColor: "#ffffff",
               }}
             >
               {conversation.map((message, index) => (
@@ -526,7 +528,7 @@ function UserFormYardimi() {
                   borderRadius: "30px",
                   border: "1px solid #e0e0e0",
                   fontSize: "16px",
-                  backgroundColor: "#f8f9fa",
+                  backgroundColor: "#ffffff",
                   marginRight: "10px",
                   outline: "none",
                 }}
