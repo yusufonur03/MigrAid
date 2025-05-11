@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import Navigation from "../../components/Navigation";
 
 function UserKulturelRehber() {
-  const [inputPrompt, setInputPrompt] = useState("");
   const [response, setResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmitPrompt = async () => {
-    if (!inputPrompt.trim()) return;
+  const handleSubmitPrompt = async (customPrompt) => {
+    if (!customPrompt) return;
 
     setIsLoading(true);
     setResponse("");
@@ -33,7 +32,7 @@ function UserKulturelRehber() {
         method: "POST",
         headers,
         body: JSON.stringify({
-          prompt: inputPrompt,
+          prompt: customPrompt,
           // language: 'en' // Optional
         }),
       });
@@ -58,44 +57,58 @@ function UserKulturelRehber() {
     }
   };
 
+  const getRandomTurkishInfo = () => {
+    const randomPrompt =
+      "Türkiye hakkında rastgele bir bilgi, atasözü, deyim açıklaması veya Türk kültürü, geleneği ile ilgili ilginç bir bilgi paylaşır mısın?";
+    handleSubmitPrompt(randomPrompt);
+  };
+
+  // Format the response text to properly render markdown-style formatting
+  const formatResponseText = (text) => {
+    if (!text) return "";
+
+    // Replace markdown-style bold text (**text**) with HTML spans
+    const boldPattern = /\*\*(.*?)\*\*/g;
+    const formattedText = text.replace(boldPattern, '<span style="font-weight: bold; color: #e74c3c;">$1</span>');
+
+    // Split the text into paragraphs
+    const paragraphs = formattedText.split("\n\n");
+
+    return paragraphs.map((paragraph, index) => (
+      <p
+        key={index}
+        style={{ fontSize: "18px", lineHeight: "1.7", marginBottom: "15px" }}
+        dangerouslySetInnerHTML={{ __html: paragraph }}
+      />
+    ));
+  };
+
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <Navigation />
       <div style={{ padding: "20px", maxWidth: "800px", margin: "0 auto", width: "100%" }}>
         <h1 style={{ textAlign: "center", margin: "20px 0" }}>Türk Kültürü Rehberi</h1>
-        <p style={{ textAlign: "center", marginBottom: "10px" }}>
+        <p style={{ textAlign: "center", marginBottom: "20px" }}>
           Learn about Turkish culture, social norms, traditions, and language.
         </p>
-        <div style={{ display: "flex", marginBottom: "20px" }}>
-          <textarea
-            value={inputPrompt}
-            onChange={(e) => setInputPrompt(e.target.value)}
-            placeholder="Ask about Turkish traditions, holidays, social customs, expressions..."
-            disabled={isLoading}
-            rows="3"
-            style={{
-              flexGrow: 1,
-              padding: "10px",
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-              marginRight: "10px",
-              resize: "vertical",
-            }}
-          />
+
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: "30px" }}>
           <button
-            onClick={handleSubmitPrompt}
+            onClick={getRandomTurkishInfo}
             disabled={isLoading}
             style={{
-              padding: "10px 15px",
+              padding: "15px 25px",
               borderRadius: "5px",
               border: "none",
-              backgroundColor: "#007bff",
+              backgroundColor: "#e74c3c",
               color: "white",
               cursor: "pointer",
-              alignSelf: "flex-end",
+              fontSize: "18px",
+              fontWeight: "bold",
+              boxShadow: "0 3px 6px rgba(0,0,0,0.2)",
             }}
           >
-            {isLoading ? "Loading..." : "Get Information"}
+            {isLoading ? "Yükleniyor..." : "Rastgele Türk Kültürü Bilgisi Öğren"}
           </button>
         </div>
 
@@ -118,15 +131,17 @@ function UserKulturelRehber() {
           <div
             style={{
               marginTop: "20px",
-              padding: "15px",
+              padding: "25px",
               border: "1px solid #eee",
-              borderRadius: "5px",
+              borderRadius: "10px",
               backgroundColor: "#f9f9f9",
               whiteSpace: "pre-wrap",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+              minHeight: "300px",
             }}
           >
-            <h3>Response:</h3>
-            <p>{response}</p>
+            <h3 style={{ marginBottom: "20px", color: "#333", textAlign: "center" }}>Türk Kültürü Bilgisi</h3>
+            <div>{formatResponseText(response)}</div>
           </div>
         )}
       </div>
