@@ -25,6 +25,7 @@ import UserSohbetAsistani from "./pages/users/UserSohbetAsistani";
 import UserKulturelRehber from "./pages/users/UserKulturelRehber";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ScrollToTop from "./components/ScrollToTop";
+import Pricing from "./pages/Pricing";
 
 import "./App.css";
 
@@ -50,6 +51,7 @@ function App() {
         <Route path="/is-eslestirme" element={<IsEslestirme />} />
         <Route path="/egitim-dil-firsatlari" element={<EgitimDilFirsatlari />} />
         <Route path="/yolharitasi" element={<YolHaritasi />} />
+        <Route path="/fiyatlandirma" element={<Pricing />} />
 
         {/* Protected user routes */}
         <Route
