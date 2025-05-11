@@ -58,7 +58,7 @@
 
 .nav-links a:hover {
   color: var(--olive-green);
-}
+} 
 
 /* REMOVED .nav-button styles are further down if needed, now using .logout-link */
 

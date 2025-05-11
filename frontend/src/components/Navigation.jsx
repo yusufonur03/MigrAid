@@ -31,8 +31,8 @@ function Navigation({ showAuthButtons = true }) {
         <Link to="/">Ana Sayfa</Link>
         {showAuthButtons ? (
           <>
-            <Link to="/kayit">Kayıt Ol</Link>
-            <Link to="/giris">Giriş Yap</Link>
+        <Link to="/kayit">Kayıt Ol</Link>
+        <Link to="/giris">Giriş Yap</Link>
           </>
         ) : (
           <>

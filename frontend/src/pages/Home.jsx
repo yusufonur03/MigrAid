@@ -22,11 +22,34 @@ import mig3 from "../assets/mig3.png";
 import mig4 from "../assets/mig4.png";
 import mig5 from "../assets/mig5.png";
 import mig6 from "../assets/mig6.png";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { isAuthenticated } from "../utils/auth";
 
 const sliderImages = [mig1, mig3, mig4, mig5, mig6];
+
+// Sayaç için custom hook
+function useCountUp(target, duration, startWhenVisible) {
+  const [count, setCount] = useState(0);
+  const raf = useRef();
+  useEffect(() => {
+    if (!startWhenVisible) return;
+    let start = null;
+    function step(timestamp) {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      setCount(Math.floor(progress * target));
+      if (progress < 1) {
+        raf.current = requestAnimationFrame(step);
+      } else {
+        setCount(target);
+      }
+    }
+    raf.current = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf.current);
+  }, [target, duration, startWhenVisible]);
+  return count;
+}
 
 function Home() {
   const { t } = useTranslation();
@@ -49,6 +72,30 @@ function Home() {
   }, []);
 
   const loggedIn = isAuthenticated();
+
+  const statsRef = useRef();
+  const [statsVisible, setStatsVisible] = useState(false);
+  const [statsTriggered, setStatsTriggered] = useState(false);
+
+  // Intersection Observer ile stats-row görünür olunca animasyon başlasın
+  useEffect(() => {
+    const observer = new window.IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !statsTriggered) {
+          setStatsVisible(true);
+          setStatsTriggered(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+    if (statsRef.current) observer.observe(statsRef.current);
+    return () => observer.disconnect();
+  }, [statsTriggered]);
+
+  // Sayaçlar
+  const count1 = useCountUp(2500, 1200, statsVisible); // 2.500+
+  const count2 = useCountUp(1200, 1200, statsVisible); // 1.200+
+  const count3 = useCountUp(50, 1200, statsVisible);   // 50+
 
   return (
     <>
@@ -132,6 +179,66 @@ function Home() {
           </div>
         </div>
       </div>
+
+      {/* İstatistik kutuları bölümü */}
+      <div className="stats-row" ref={statsRef} style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: '2.5rem',
+        margin: '40px 0 40px 0',
+        width: '100%',
+      }}>
+        <div className="stat-card" style={{
+          background: '#2D4D76',
+          borderRadius: '1.5rem',
+          minWidth: 260,
+          maxWidth: 340,
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '2.5rem 2rem',
+          boxShadow: '0 2px 12px rgba(74,144,226,0.08)',
+        }}>
+          <div style={{ color: '#FFD600', fontSize: '2.5rem', fontWeight: 700, marginBottom: 8 }}>{count1.toLocaleString('tr-TR')}+</div>
+          <div style={{ color: '#fff', fontSize: '1.2rem', fontWeight: 500 }}>Destek verilen birey</div>
+        </div>
+        <div className="stat-card" style={{
+          background: '#2D4D76',
+          borderRadius: '1.5rem',
+          minWidth: 260,
+          maxWidth: 340,
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '2.5rem 2rem',
+          boxShadow: '0 2px 12px rgba(74,144,226,0.08)',
+        }}>
+          <div style={{ color: '#FFD600', fontSize: '2.5rem', fontWeight: 700, marginBottom: 8 }}>{count2.toLocaleString('tr-TR')}+</div>
+          <div style={{ color: '#fff', fontSize: '1.2rem', fontWeight: 500 }}>Tamamlanan başvuru</div>
+        </div>
+        <div className="stat-card" style={{
+          background: '#2D4D76',
+          borderRadius: '1.5rem',
+          minWidth: 260,
+          maxWidth: 340,
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '2.5rem 2rem',
+          boxShadow: '0 2px 12px rgba(74,144,226,0.08)',
+        }}>
+          <div style={{ color: '#FFD600', fontSize: '2.5rem', fontWeight: 700, marginBottom: 8 }}>{count3}+</div>
+          <div style={{ color: '#fff', fontSize: '1.2rem', fontWeight: 500 }}>Kurum iş birliği</div>
+        </div>
+      </div>
+
       <div
         style={{
           width: "100%",
