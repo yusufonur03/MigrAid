@@ -24,12 +24,14 @@ import UserFormYardimi from "./pages/users/UserFormYardimi";
 import UserSohbetAsistani from "./pages/users/UserSohbetAsistani";
 import UserKulturelRehber from "./pages/users/UserKulturelRehber";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ScrollToTop from "./components/ScrollToTop";
 
 import "./App.css";
 
 function App() {
   return (
     <>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/kayit" element={<Register />} />
