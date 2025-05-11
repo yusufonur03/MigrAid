@@ -1,7 +1,6 @@
 import React from "react";
 import Navigation from "../components/Navigation";
 import "../components/Navigation.css";
-import Footer from "../components/Footer";
 import "./Pricing.css";
 
 function Pricing() {
@@ -103,7 +102,6 @@ function Pricing() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }
