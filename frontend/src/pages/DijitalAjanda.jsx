@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import logo from '../assets/migraid.png';
 import '../components/Navigation.css';
-import ajandaresmi from '../assets/airesmi.jpg'; // görsel yolunu uyarlamayı unutma
+import ajandaresmi from '../assets/digai.jpg'; // görsel yolunu uyarlamayı unutma
 
 const ajandaMetni = (
   <div style={{

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/migraid.png";
 import "../components/Navigation.css";
-import isresmi from "../assets/airesmi.jpg"; // görsel yolunu uygun şekilde düzenle
+import isresmi from "../assets/jobai.jpg"; // görsel yolunu uygun şekilde düzenle
 
 const isMetni = (
   <div

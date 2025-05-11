@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import logo from '../assets/migraid.png';
 import '../components/Navigation.css';
-import formresmi from '../assets/airesmi.jpg'; // Form görselini buraya yerleştir
+import formresmi from '../assets/docai.jpg'; // Form görselini buraya yerleştir
 
 const formMetni = (
   <div style={{

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import logo from '../assets/migraid.png';
 import '../components/Navigation.css';
-import gelisimresmi from '../assets/airesmi.jpg'; // görsel dosyanı buraya eklemeyi unutma
+import gelisimresmi from '../assets/romap.jpg'; // görsel dosyanı buraya eklemeyi unutma
 
 const gelisimMetni = (
   <div style={{

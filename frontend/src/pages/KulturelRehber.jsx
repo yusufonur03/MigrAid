@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import logo from '../assets/migraid.png';
 import '../components/Navigation.css';
-import kulturresmi from '../assets/airesmi.jpg'; // Görsel yolunu senin kullandığın yapıya göre ayarla
+import kulturresmi from '../assets/guiai.jpg'; // Görsel yolunu senin kullandığın yapıya göre ayarla
 
 const rehberMetni = (
   <div style={{
