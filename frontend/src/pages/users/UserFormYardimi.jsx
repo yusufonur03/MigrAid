@@ -210,16 +210,93 @@ function UserFormYardimi() {
   const formatMessage = (text) => {
     if (!text) return "";
 
-    // Replace markdown-style bold text
-    const boldPattern = /\*\*([^*]+)\*\*/g;
-    const formattedText = text.replace(boldPattern, '<span style="font-weight: bold;">$1</span>');
+    // Process the markdown
+    let formattedText = text;
 
-    // Split the text into paragraphs
-    const paragraphs = formattedText.split("\n\n");
+    // Headers
+    formattedText = formattedText.replace(
+      /^### (.*$)/gm,
+      '<h3 style="font-size: 18px; margin: 14px 0 8px; color: #2c3e50;">$1</h3>'
+    );
+    formattedText = formattedText.replace(
+      /^## (.*$)/gm,
+      '<h2 style="font-size: 20px; margin: 16px 0 8px; color: #2c3e50;">$1</h2>'
+    );
+    formattedText = formattedText.replace(
+      /^# (.*$)/gm,
+      '<h1 style="font-size: 22px; margin: 18px 0 10px; color: #2c3e50;">$1</h1>'
+    );
 
-    return paragraphs.map((paragraph, index) => (
-      <p key={index} style={{ marginBottom: "10px" }} dangerouslySetInnerHTML={{ __html: paragraph }} />
-    ));
+    // Bold
+    formattedText = formattedText.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+
+    // Italic
+    formattedText = formattedText.replace(/\*(.+?)\*/g, "<em>$1</em>");
+    formattedText = formattedText.replace(/_(.+?)_/g, "<em>$1</em>");
+
+    // Links
+    formattedText = formattedText.replace(
+      /\[(.+?)\]\((.+?)\)/g,
+      '<a href="$2" style="color: #3182ce; text-decoration: underline;" target="_blank">$1</a>'
+    );
+
+    // Unordered lists
+    formattedText = formattedText.replace(/^\s*[-*+]\s+(.*)/gm, '<li style="margin-bottom: 5px;">$1</li>');
+    formattedText = formattedText.replace(/<\/li>\n<li/g, "</li><li");
+    formattedText = formattedText.replace(
+      /(<li[^>]*>.*<\/li>)/s,
+      '<ul style="margin: 10px 0; padding-left: 25px;">$1</ul>'
+    );
+
+    // Ordered lists
+    formattedText = formattedText.replace(/^\s*(\d+)\.\s+(.*)/gm, '<li style="margin-bottom: 5px;">$2</li>');
+    formattedText = formattedText.replace(
+      /(<li[^>]*>.*<\/li>)/s,
+      '<ol style="margin: 10px 0; padding-left: 25px;">$1</ol>'
+    );
+
+    // Code blocks
+    formattedText = formattedText.replace(
+      /```(.+?)```/gs,
+      '<pre style="background-color: #f0f2f5; padding: 12px; border-radius: 6px; margin: 10px 0; overflow-x: auto;"><code>$1</code></pre>'
+    );
+
+    // Inline code
+    formattedText = formattedText.replace(
+      /`(.+?)`/g,
+      '<code style="background-color: #f0f2f5; padding: 2px 4px; border-radius: 4px; font-family: monospace;">$1</code>'
+    );
+
+    // Horizontal rule
+    formattedText = formattedText.replace(
+      /^\s*---\s*$/gm,
+      '<hr style="border: 0; height: 1px; background-color: #ddd; margin: 15px 0;" />'
+    );
+
+    // Blockquote
+    formattedText = formattedText.replace(
+      /^\s*>\s+(.*)/gm,
+      '<blockquote style="border-left: 4px solid #cbd5e0; padding-left: 15px; margin: 15px 0; color: #4a5568;">$1</blockquote>'
+    );
+
+    // Split the text into paragraphs and handle those not processed by other rules
+    const paragraphs = formattedText.split(/\n\n+/);
+    const processedParagraphs = paragraphs.map((paragraph) => {
+      // Skip already processed paragraphs (those with HTML tags)
+      if (paragraph.trim().startsWith("<") && !paragraph.trim().startsWith("<code")) {
+        return paragraph;
+      }
+
+      // Handle remaining paragraphs
+      if (paragraph.trim() !== "") {
+        return `<p style="margin-bottom: 10px;">${paragraph.replace(/\n/g, "<br />")}</p>`;
+      }
+
+      return "";
+    });
+
+    // Join the processed paragraphs
+    return <div dangerouslySetInnerHTML={{ __html: processedParagraphs.join("\n") }} />;
   };
 
   return (
