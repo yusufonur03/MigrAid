@@ -1,4 +1,4 @@
-import './Footer.css';
+import "./Footer.css";
 
 function Footer() {
   return (
@@ -43,18 +43,60 @@ function Footer() {
           <a href="#">Site Haritası</a>
         </div>
       </div>
-      <div className="footer-bottom" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative'}}>
+      <div
+        className="footer-bottom"
+        style={{ display: "flex", justifyContent: "center", alignItems: "center", position: "relative" }}
+      >
         <span>© 2025 MigrAid. Tüm Hakları Saklıdır.</span>
-        <div className="footer-social" style={{position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)'}}>
+        <div
+          className="footer-social"
+          style={{ position: "absolute", right: 0, top: "50%", transform: "translateY(-50%)" }}
+        >
           <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#fff"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              <line x1="17.5" y1="6.5" x2="17.5" y2="6.5" />
+            </svg>
           </a>
           <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3.64l.36-4H14V7a1 1 0 0 1 1-1h3z"/></svg>
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#fff"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3.64l.36-4H14V7a1 1 0 0 1 1-1h3z" />
+            </svg>
           </a>
           <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="X">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M17.53 3H21L14.19 10.63L22.24 21H16.42L11.77 14.93L6.52 21H3L10.13 12.85L2.36 3H8.34L12.54 8.49L17.53 3ZM16.42 19H18.19L8.24 5H6.36L16.42 19Z" fill="#fff"/>
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#fff"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path
+                d="M17.53 3H21L14.19 10.63L22.24 21H16.42L11.77 14.93L6.52 21H3L10.13 12.85L2.36 3H8.34L12.54 8.49L17.53 3ZM16.42 19H18.19L8.24 5H6.36L16.42 19Z"
+                fill="#fff"
+              />
             </svg>
           </a>
         </div>
@@ -63,4 +105,4 @@ function Footer() {
   );
 }
 
-export default Footer; 
+export default Footer;
