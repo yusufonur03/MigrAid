@@ -1,3 +1,5 @@
+Katkıda Bulunanlar: ✨ @batuhan4 ✨ ve ✨ @yusufonur03 ✨
+
 # MigrAid - HACKGDG25 Projesi
 
 **Takım Adı:** PixelMind
