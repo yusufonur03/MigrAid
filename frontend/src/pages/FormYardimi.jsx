@@ -16,7 +16,7 @@ const formMetni = (
     lineHeight: 1.7
   }}>
     <div style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1.2rem' }}>
-      <span role="img" aria-label="form">📝</span> MigrAid Form Doldurma Yardımı
+      <span role="img" aria-label="form">📝</span> MigrAid Resmi Belge Yardımı
     </div>
     <div style={{ marginBottom: '1.1rem' }}>
       <span role="img" aria-label="pin">📌</span> <b>Görevin Tanımı:</b><br />
@@ -26,11 +26,10 @@ const formMetni = (
       <span role="img" aria-label="hedef">🎯</span> <b>Özellikler</b>
       <ul style={{ margin: '0.7rem 0 0 1.2rem', padding: 0 }}>
         <li><b>Doğrudan Soru-Cevapla Form Oluşturma:</b> Kullanıcı Türkçe bilmek zorunda kalmadan, ana dilinde asistanla konuşarak formu doldurabilir.</li>
-        <li><b>Oturma İzni Başvuru Formları:</b> Göç İdaresi’ne verilecek belgeler otomatik olarak doldurulur.</li>
+        <li><b>Oturma İzni Başvuru Formları:</b> Göç İdaresi’ne verilecek belgeleri doldurmaya yardımcı olur.</li>
         <li><b>İkametgah, Sağlık, Sosyal Yardım Başvuruları:</b> Yaygın tüm resmi belgeler sistem içinde mevcuttur.</li>
         <li><b>Dil Uyarlaması:</b> Sorular, kullanıcının seçtiği dilde gösterilir (örneğin Arapça, Farsça).</li>
-        <li><b>Belgeleri Kaydetme ve İndirme:</b> Hazırlanan form PDF olarak indirilebilir veya dijital dosya kasasına eklenebilir.</li>
-        <li><b>Gizlilik ve Güvenlik:</b> Tüm bilgiler yalnızca kullanıcı cihazında geçici olarak işlenir. Üçüncü taraflarla paylaşılmaz.</li>
+        <li><b>Belgeleri Kaydetme ve İndirme:</b> Hazırlanan form PDF olarak indirilebilir veya dijital dosya kasasına eklenebilir. (yakında)</li>
         <li><b>Destekli Belge Türleri:</b> Oturma izni formu, adres beyanı, vergi numarası başvurusu, eğitim kayıt formları, sağlık kayıt formu vb.</li>
       </ul>
     </div>
