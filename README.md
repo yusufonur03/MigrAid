@@ -165,10 +165,6 @@ Detaylı kurulum adımları bu projenin `README.md` dosyasında yer alacaktır. 
 
 - **PixelMind**
 
-## 📄 Lisans
-
-Bu proje [LISANS ADI BURAYA EKLENECEK] lisansı altında lisanslanmıştır. Detaylar için `LICENSE` dosyasına bakınız. (Eğer varsa)
-
----
 
 Bu README, HACKGDG25 etkinliği için PixelMind takımı tarafından geliştirilen MigrAid projesini tanıtmaktadır.
+
